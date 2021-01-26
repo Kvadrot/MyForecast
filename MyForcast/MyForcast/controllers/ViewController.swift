@@ -14,8 +14,9 @@ class ViewController: UIViewController {
 //    var kyiv = Citymodel(name: "Kyiv", temperature: -20)
 //    var dnepr = Citymodel(name: "Dnepr", temperature: -20)
 //
-//    static var arrayOfSavedCities: [Citymodel] = []
-    
+    var arrayOfSavedCities: [CurrentWeatherJson] = []
+    var networkManager = NetworkManeger()
+
     @IBOutlet weak var searchbar: UISearchBar!
     @IBOutlet weak var currentWeatherCollectionVC: UICollectionView!
     
@@ -25,35 +26,33 @@ class ViewController: UIViewController {
         
         searchbar.delegate = self
  
-//        currentWeatherCollectionVC.dataSource = self
-//        currentWeatherCollectionVC.delegate = self
+        currentWeatherCollectionVC.dataSource = self
+        currentWeatherCollectionVC.delegate = self
         
         
     }
 }
 
-//extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellCurrentWeatherVC", for: indexPath) as! CellCurrentWeatherVC
-//
-//        let name = ViewController.arrayOfSavedCities[indexPath.item].cityName
-//
-//
-//        //ViewController.arrayOfSavedCities[indexPath.item].temperature
-//
-//        cell.labelCurrentWeatherCityName.text = name
-//        cell.labelCurrentWeatherCityTemperature.text = String(NetworkManager.shared.getweather(city: kyiv)!)
-//        return cell
-//    }
-//
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//
-//        return ViewController.arrayOfSavedCities.count
-//    }
-//}
+extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellCurrentWeatherVC", for: indexPath) as! CellCurrentWeatherVC
+
+        let name = self.arrayOfSavedCities[indexPath.item].main!.cityname!
+
+        cell.labelCurrentWeatherCityName.text = name
+        cell.labelCurrentWeatherCityTemperature.text = String(self.arrayOfSavedCities[indexPath.item].main!.temp!)
+
+        return cell
+    }
+
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
+        return self.arrayOfSavedCities.count
+    }
+}
 
 extension ViewController: UISearchBarDelegate {
 
@@ -64,6 +63,15 @@ extension ViewController: UISearchBarDelegate {
 
         guard let searchingCityName = searchBar.text else { return }
 
-        NetworkManeger.init(searchingCityName)
+        let url = networkManager.createURLRequest(searchingCityName)
+        networkManager.getWeather(url, searchingCityName, compelition: self.addWeatherToArrayForCell)
+    }
+
+    func addWeatherToArrayForCell(weather: CurrentWeatherJson) -> Void {
+        DispatchQueue.main.async {
+            print(weather.main?.temp)
+            self.arrayOfSavedCities.append(weather)
+            self.currentWeatherCollectionVC.reloadData()
+        }
     }
 }

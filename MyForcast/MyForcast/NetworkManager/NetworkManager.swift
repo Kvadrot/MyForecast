@@ -13,47 +13,53 @@ class CurrentWeatherJson: Codable {
 
 class NetworkManeger {
     
-    
-    var cityName: String!
-    
-    init(_ cityName: String) {
-
-        self.cityName = cityName
-        let request = createURLRequest(self.cityName)
-        getWeather(request)
-    }
-    
     func createURLRequest(_ cityName: String) -> URLRequest {
         
         var urlComponents = URLComponents()
         
         urlComponents.scheme = "https"
         urlComponents.host = "api.openweathermap.org"
-        urlComponents.path = "/data/2.5/forecast"
+        urlComponents.path = "/data/2.5/weather"
         urlComponents.queryItems = [
             URLQueryItem(name: "q", value: cityName),
+            URLQueryItem(name: "units", value: "metric"),
             URLQueryItem(name: "appid", value: "e7fc58f1126ed00b67195097153e0987")]
         
         var request = URLRequest(url: urlComponents.url!)
         request.httpMethod = "GET"
-        
+        print(request)
         return request
     }
     
-    func getWeather(_ request: URLRequest, decderedResults: @escaping ()) {
+    func getWeather(_ url: URLRequest, _ cityName: String, compelition: @escaping (CurrentWeatherJson) -> Void) {
         
         let task = URLSession(configuration: .default)
-        task.dataTask(with: request) { (data, response, error) in
+        let dataTask = task.dataTask(with: url) { (data, response, error) in
             
             guard error == nil else { return print("error gamno") }
             
             let decoder = JSONDecoder()
             
             guard data != nil else { return print("void in data")}
+            
+            do {
 
-            var decoderedDataCurrentWeather: CurrentWeatherJson?
-            decoderedDataCurrentWeather = try? decoder.decode(CurrentWeatherJson.self, from: data!)
-            print(decoderedDataCurrentWeather)
+                let decoderedDataCurrentWeather: CurrentWeatherJson
+                decoderedDataCurrentWeather = try decoder.decode(CurrentWeatherJson.self, from: data!)
+                decoderedDataCurrentWeather.main?.cityname = cityName
+                //
+                //                func addWeatherToArray(weather: CurrentWeatherJson) -> Void {
+                //                    DispatchQueue.main.async {
+                //                        print(weather)
+                //                        self.arrayOfSavedCities.append(weather)
+                //                        self.currentWeatherCollectionVC.reloadData()
+                //                    }
+                //                }
+                //
+                compelition(decoderedDataCurrentWeather) // addWeatherToArray(decoderedDataCurrentWeather)
+            } catch {
+                print(error)
+            }
         }.resume()
         
     }

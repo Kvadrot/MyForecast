@@ -14,4 +14,5 @@ class MainCurrentWeatherJson: Codable {
     var temp_max: Double?
     var pressure: Int?
     var humidity: Int?
+    var cityname: String?
 }
