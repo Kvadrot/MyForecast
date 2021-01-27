@@ -1,38 +1,28 @@
-//
-//  ViewController.swift
-//  MyForcast
-//
-//  Created by 1 on 25.01.2021.
-//
 
 import UIKit
 
 
 
 class ViewController: UIViewController {
-    
-//    var kyiv = Citymodel(name: "Kyiv", temperature: -20)
-//    var dnepr = Citymodel(name: "Dnepr", temperature: -20)
-//
+
     var arrayOfSavedCities: [CurrentWeatherJson] = []
-    var networkManager = NetworkManeger()
+    var networkManager = NetworkManegerForCurrentWeather()
 
     @IBOutlet weak var searchbar: UISearchBar!
     @IBOutlet weak var currentWeatherCollectionVC: UICollectionView!
-    
-    
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         searchbar.delegate = self
  
         currentWeatherCollectionVC.dataSource = self
         currentWeatherCollectionVC.delegate = self
-        
-        
+
     }
 }
-
+//MARK: - currentWeatherCollectionView
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -53,7 +43,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         return self.arrayOfSavedCities.count
     }
 }
-
+//MARK: - searchBar
 extension ViewController: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -73,5 +63,16 @@ extension ViewController: UISearchBarDelegate {
             self.arrayOfSavedCities.append(weather)
             self.currentWeatherCollectionVC.reloadData()
         }
+    }
+}
+//MARK: - NextScreenForcast
+extension ViewController {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        let vc = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "ForcastWeatherVC") as! ForcastWeatherVC
+        
+        vc.currentWeatherJson = arrayOfSavedCities[indexPath.row]
+        self.navigationController?.pushViewController(vc, animated: true)
+
     }
 }

@@ -1,23 +1,24 @@
 
 import Foundation
 
-class CurrentWeatherJson: Codable {
+class ForcastWeatherJson: Codable {
 
-    var coord: Coordinates
-    var main: MainCurrentWeatherJson?
+    var daily: [MainForcast]?
+    var cityName: String?
 }
 
-class NetworkManegerForCurrentWeather {
-
-    func createURLRequest(_ cityName: String) -> URLRequest {
+class NetworkManagerForcast {
+    
+    func createURLForcastRequest(_ lat: Double , _ lon: Double ) -> URLRequest {
 
         var urlComponents = URLComponents()
 
         urlComponents.scheme = "https"
         urlComponents.host = "api.openweathermap.org"
-        urlComponents.path = "/data/2.5/weather"
+        urlComponents.path = "/data/2.5/onecall"
         urlComponents.queryItems = [
-            URLQueryItem(name: "q", value: cityName),
+            URLQueryItem(name: "lat", value: String(lat)),
+            URLQueryItem(name: "lon", value: String(lon)),
             URLQueryItem(name: "units", value: "metric"),
             URLQueryItem(name: "appid", value: "e7fc58f1126ed00b67195097153e0987")]
 
@@ -26,9 +27,9 @@ class NetworkManegerForCurrentWeather {
 
         return request
     }
-
-    func getWeather(_ url: URLRequest, _ cityName: String, compelition: @escaping (CurrentWeatherJson) -> Void) {
-
+    
+    func getForcast(_ url: URLRequest, _ cityName: String, compelition: @escaping (ForcastWeatherJson) -> Void) {
+        
         let task = URLSession(configuration: .default)
         let dataTask = task.dataTask(with: url) { (data, response, error) in
 
@@ -40,12 +41,11 @@ class NetworkManegerForCurrentWeather {
 
             do {
 
-                let decoderedDataCurrentWeather: CurrentWeatherJson
-                decoderedDataCurrentWeather = try decoder.decode(CurrentWeatherJson.self, from: data!)
-                decoderedDataCurrentWeather.main?.cityname = cityName
+                let decoderedDataForcastWeather: ForcastWeatherJson
+                decoderedDataForcastWeather = try decoder.decode(ForcastWeatherJson.self, from: data!)
+                decoderedDataForcastWeather.cityName = cityName
 
-                compelition(decoderedDataCurrentWeather)
-
+                compelition(decoderedDataForcastWeather)
             } catch {
                 print(error)
             }
@@ -53,4 +53,3 @@ class NetworkManegerForCurrentWeather {
         
     }
 }
-

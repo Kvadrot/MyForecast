@@ -110,6 +110,105 @@
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="75"/>
         </scene>
+        <!--Forcast WeatherVC-->
+        <scene sceneID="svX-sg-UNz">
+            <objects>
+                <viewController restorationIdentifier="ForcastWeatherVC" storyboardIdentifier="ForcastWeatherVC" id="ieG-to-y3C" customClass="ForcastWeatherVC" customModule="MyForcast" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Toe-nl-5wk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="fore" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="p2s-eG-iuQ">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" red="0.0" green="0.4366541505" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3rM-92-d8P">
+                                    <size key="itemSize" width="414" height="196"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="CellForcast" reuseIdentifier="СellForcast" id="CTd-rC-G05" customClass="CellForcast" customModule="MyForcast" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="196"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="LDm-ti-hPh">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="196"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="40" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j1g-lO-0UC">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="196"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="cityName" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6H-bt-8Yp">
+                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="123"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="40"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="2pK-Oy-KA4">
+                                                            <rect key="frame" x="0.0" y="73.5" width="414" height="122.5"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NvR-28-J7a">
+                                                                    <rect key="frame" x="0.0" y="46.5" width="56" height="29"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="data" text="2020-02-10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ynj-em-Sej">
+                                                                    <rect key="frame" x="89" y="46.5" width="135" height="29"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="temp" text="-20.55" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaI-6b-jsU">
+                                                                    <rect key="frame" x="256.5" y="30.5" width="157.5" height="61"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="51"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="2pK-Oy-KA4" secondAttribute="trailing" id="dTH-wd-gDH"/>
+                                                        <constraint firstItem="2pK-Oy-KA4" firstAttribute="leading" secondItem="j1g-lO-0UC" secondAttribute="leading" id="f6u-jb-KyN"/>
+                                                    </constraints>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.32893285160000002" green="0.78125315900000003" blue="0.98977404830000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="j1g-lO-0UC" firstAttribute="leading" secondItem="LDm-ti-hPh" secondAttribute="leading" id="YTo-wk-4kg"/>
+                                                <constraint firstAttribute="bottom" secondItem="j1g-lO-0UC" secondAttribute="bottom" id="eBl-Bv-LiW"/>
+                                                <constraint firstAttribute="trailing" secondItem="j1g-lO-0UC" secondAttribute="trailing" id="fC5-Xa-gtl"/>
+                                                <constraint firstItem="j1g-lO-0UC" firstAttribute="top" secondItem="LDm-ti-hPh" secondAttribute="top" id="sz1-67-kHq"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="414" height="196"/>
+                                        <connections>
+                                            <outlet property="labelCityNameForcast" destination="d6H-bt-8Yp" id="xcc-1y-8km"/>
+                                            <outlet property="labelDataForcast" destination="ynj-em-Sej" id="4sy-vc-lHK"/>
+                                            <outlet property="labelTemperatureForcast" destination="iaI-6b-jsU" id="oQA-EA-xuo"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="wvS-lO-yeO"/>
+                        <color key="backgroundColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="p2s-eG-iuQ" firstAttribute="top" secondItem="Toe-nl-5wk" secondAttribute="top" id="7Qf-BX-HlN"/>
+                            <constraint firstAttribute="bottom" secondItem="p2s-eG-iuQ" secondAttribute="bottom" id="cTV-3x-PwM"/>
+                            <constraint firstItem="p2s-eG-iuQ" firstAttribute="leading" secondItem="wvS-lO-yeO" secondAttribute="leading" id="ka7-iU-Iad"/>
+                            <constraint firstItem="p2s-eG-iuQ" firstAttribute="trailing" secondItem="wvS-lO-yeO" secondAttribute="trailing" id="rPt-jq-UNh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="forecastCollectionView" destination="p2s-eG-iuQ" id="Ia9-eg-Lik"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bdS-6K-Piy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1840.5797101449277" y="85.714285714285708"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="JdR-cs-NQK">
             <objects>
